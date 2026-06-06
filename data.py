@@ -1,5 +1,8 @@
+import os
+
+
 class Config:
-    URL = "https://qa-scooter.praktikum-services.ru"
+    URL = os.getenv("BASE_URL", "https://qa-scooter.praktikum-services.ru")
 
 
 class OrderData:

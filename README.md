@@ -38,6 +38,14 @@ Run tests:
 pytest
 ```
 
+Override the default base URL if needed:
+
+```bash
+BASE_URL=https://example.com pytest
+```
+
+The default URL is listed in `.env.example`.
+
 Run tests with Allure results:
 
 ```bash
