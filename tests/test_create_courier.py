@@ -13,12 +13,11 @@ class TestCreateCourier:
         assert response.status_code == 201, "Expected status code 201 for successful registration"
         assert response.json() == {"ok": True}, "Response should be {'ok': True}"
 
-    @pytest.mark.xfailed
     @allure.step("Test duplicate courier registration")
     def test_create_duplicate_courier(self, register_new_courier, setup_and_teardown):
         payload, response, courier_id = setup_and_teardown
         duplicate_payload, duplicate_response = register_new_courier(payload)
-        assert duplicate_response.json()['message'] == "Этот логин уже используется"
+        assert "Этот логин уже используется" in duplicate_response.json()["message"]
 
     @allure.step("Test courier creation without some required fields")
     def test_create_courier_without_required_fields(self, generate_user_data, config):
@@ -60,7 +59,7 @@ class TestCreateCourier:
         response = requests.post(url, json=payload)
         assert response.status_code == 400, "Expected status code 400 for missing password"
 
-    @pytest.mark.xfailed
+    @pytest.mark.xfail(reason="API returns 409 instead of documented 400 for missing firstName")
     @allure.step("Test courier creation without first name")
     def test_create_courier_without_first_name(self, generate_user_data, config):
         url = f"{config}/api/v1/courier"

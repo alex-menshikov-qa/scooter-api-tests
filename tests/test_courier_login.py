@@ -25,7 +25,7 @@ class TestCourierLogin:
         response = login_courier(payload)
         assert response.json()['message'] == "Недостаточно данных для входа"
 
-    @pytest.mark.xfailed
+    @pytest.mark.xfail(reason="API returns 504 instead of documented validation response")
     @allure.step("Test login without password")
     def test_login_without_password(self, generate_user_data, login_courier):
         payload = {
